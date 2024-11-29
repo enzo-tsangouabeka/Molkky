@@ -26,7 +26,7 @@ Lorsqu’une quille a été abattue, on la redresse sur son pied, le numéro fac
 où elle se trouve. L’objectif de ce mini-projet va être de créer un programme permettant de compter les points
 au Mölkky au cours d’une partie.
 
-Niveau 0 (en cours):
+Niveau 0 (Fini et push):
 Votre programme calcule le nombre de points lorsqu’une seule équipe joue, jusqu’à sa victoire. Les
 valeurs des quilles tombées étant saisies par l’utilisateur.
 
@@ -38,12 +38,13 @@ Niveau 2 (non fait):
 Votre programme pourra gérer les matchs entre trois équipes.
 */
 
-array<int, 12> keel{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-
 // Valeur constante
 const int MAX_SCORE(50);
 const int SCORE_OF_EXCEED(25);
 int teamScore(0);
+
+// Sous-Programmes
+void maxScoreExceed();
 
 /**
 * @fn int cheakTypeEntire(int& _entire);
@@ -69,23 +70,49 @@ bool isntWinCondition() {
 }
 
 int main() {
-    int score(0);
+    int score(0), keelFallen(0);
     while (isntWinCondition()) {
-        cout << "Quel est ton score de quille >";
-        cheakTypeEntire(score);
-
-        if (score <= 12 && score >= 0) {
-            teamScore += score;
-            if (teamScore > MAX_SCORE) {
-                cout << "Vous avez depasser du score max (" << MAX_SCORE << "), votre score a ete reinitialise a " << SCORE_OF_EXCEED << endl;
-                teamScore = SCORE_OF_EXCEED;
-            }
+        cout << "Combien de quilles sont tombe > "; cheakTypeEntire(keelFallen);
+        if (keelFallen == 0) {
+            cout << "Aucune quille tombe, Dommage" << endl;
             cout << "Le score d'equipe est maintenant de : " << teamScore << endl;
         }
+        else if (keelFallen == 1) {
+            cout << "Quel est ton score de la quille >"; cheakTypeEntire(score);
+
+            if (score <= 12 && score >= 0) {
+                teamScore += score;
+                maxScoreExceed();
+                cout << "Le score d'equipe est maintenant de : " << teamScore << endl;
+            }
+            else {
+                cout << "Veuillez entrer nombre compris entre 0 et 12 inclue !" << endl;
+            }
+        }
         else {
-            cout << "Veuillez entrer nombre compris entre 0 et 12 inclue !" << endl;
+            if (keelFallen <= 12 && keelFallen >= 2) {
+                teamScore += keelFallen;
+                maxScoreExceed();
+                cout << "Le score d'equipe est maintenant de : " << teamScore << endl;
+            }
+            else {
+                cout << ((keelFallen > 12) ? "Impossible, il n'y a que 12 quille" : "Impossible, vous avez fait tombe plus de 1 quille") << endl; // Pas atteignable
+            }
+
         }
     }
     cout << "Gagne" << endl;
     return 0;
+}
+
+// Mettre un pointer sur l'équipe analyser plus tard
+/**
+* @fn void maxScoreExceed();
+* @brief Fonction de vérification de dépassement du score d'équipe (si teamScore dépasse de 50 alors teamScore = 25)
+*/
+void maxScoreExceed() {
+    if (teamScore > MAX_SCORE) {
+        cout << "Vous avez depasser du score max (" << MAX_SCORE << "), votre score a ete reinitialise a " << SCORE_OF_EXCEED << endl;
+        teamScore = SCORE_OF_EXCEED;
+    }
 }
