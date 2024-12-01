@@ -34,7 +34,7 @@ Niveau 1 (Fini et push):
 Votre programme détermine aléatoirement les quilles tombées et calcule le nombre de points lors d’un
 match entre deux équipes, jusqu’à la victoire d’une équipe.
 
-Niveau 2 (non fait):
+Niveau 2 (Fini et push):
 Votre programme pourra gérer les matchs entre trois équipes.
 */
 
