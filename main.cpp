@@ -40,13 +40,14 @@ Votre programme pourra gérer les matchs entre trois équipes.
 
 // Variable global
 constexpr int MAX_SCORE(50), SCORE_OF_EXCEED(25);
-int teamScore(0), team1Score(0), team2Score(0), round(0);
+int teamScore(0), team1Score(0), team2Score(0), team3Score(0), round(0);
 
 // Sous-Programmes
 void maxScoreExceed(int &_teamScore = teamScore);
 void game(const int _gameMode = 0);
 void lvl0();
-void lvl1(); // void lvl2();
+void lvl1();
+void lvl2();
 void shootKeel(int &_teamScore);
 
 /**
@@ -107,13 +108,8 @@ void game(const int _gameMode) {
     else if (_gameMode == 1) {
         lvl1();
     }
-    /*
     else if (_gameMode == 2) {
         lvl2();
-    }
-     */
-    else {
-        return;
     }
 }
 
@@ -161,7 +157,7 @@ void lvl0() {
 */
 void lvl1() {
     while (true) {
-        // Tour de l'équipe 2
+        // Tour de l'équipe 1
         if (isntWinCondition(team2Score)) {
             cout << "---- Tour " << ++round << " ----" <<  endl;
             shootKeel(team1Score);
@@ -187,11 +183,37 @@ void lvl1() {
 * @fn void lvl2();
 * @brief Niveau 2 du tp
 */
-/*
 void lvl2() {
-    return;
+    while (true) {
+        // Tour de l'équipe 1
+        if (isntWinCondition(team3Score)) {
+            cout << "---- Tour " << ++round << " ----" <<  endl;
+            shootKeel(team1Score);
+        }
+        else {
+            cout << "L'equipe 3 a gagnee !" << endl;
+            break;
+        }
+
+        // Tour de l'équipe 2
+        if (isntWinCondition(team1Score)) {
+            shootKeel(team2Score);
+        }
+        else {
+            cout << "L'equipe 1 a gagnee !" << endl;
+            break;
+        }
+
+        // Tour de l'équipe 3
+        if (isntWinCondition(team2Score)) {
+            shootKeel(team3Score);
+        }
+        else {
+            cout << "L'equipe 2 a gagnee !" << endl;
+            break;
+        }
+    }
 }
-*/
 
 /**
 * @fn void shootKeel(int &_teamScore);
